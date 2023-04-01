@@ -6,8 +6,6 @@ var generateBtn = document.querySelector("#generate");
 generateBtn.addEventListener("click", writePassword);
 
 function writePassword () {
-  console.log("Generate button clicked");
-
   var pwdLength = askLength();
   console.log("Password length is: " + pwdLength);
 
@@ -16,9 +14,7 @@ function writePassword () {
 
   var password = generatePassword(pwdLength, pwdCharTypes);
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
-
 }
 
 function generatePassword (length, types) {
@@ -47,7 +43,7 @@ function askLength () {
     askLength();
   }
   else {
-    alert("You entered " + length + ". This meets the criteria, thank you.");
+    alert("You entered: " + length + ". This meets the criteria, thank you.");
     return length;
   }
 }

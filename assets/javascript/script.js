@@ -13,6 +13,7 @@ function writePassword () {
   console.log("Password character types are: " + pwdCharTypes);
 
   let password = generatePassword(pwdLength, pwdCharTypes);
+  
   let passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
@@ -30,9 +31,11 @@ function generatePassword (length, types) {
   return randomizeString(genPassword);
 }
 
+
 function askLength () {
   let length = parseInt(prompt("Enter the length of the desired password (8-128 characters): ", "8"));
 
+  //verifies that the entered number is in fact a number and that it meets the length limitations
   if (Number.isNaN(length)) {
     alert("You did not enter a number! Please enter a number between 8 - 128");
     askLength();
@@ -50,10 +53,12 @@ function askLength () {
 function askCharType () {
   let charPrompt = prompt("Please enter the character types with commas in between: \n1 = lowercase \n2 = uppercase \n3 = numeric \n4 = special characters", "1, 2, 3, 4");
   
+  //removes whitespace and verifies that there are no duplicate values by converting into a Set and back into an array
   let charTypes = charPrompt.replaceAll(" ", "").split(",");
   let charTypesSet = new Set(charTypes);
   charTypes = Array.from(charTypesSet);
 
+  //makes sure the entered numbers meet the choice criteria
   for (let i = 0; i < charTypes.length; i++) {
     if ((charTypes[i] == "1") || (charTypes[i] == "2") || (charTypes[i] == "3") || (charTypes[i] == "4")) {
       return charTypes;
@@ -69,6 +74,7 @@ function firstRandomCharacter (options) {
   let curCharacter = "";
   let curString = "";
 
+  //generates the initial password to make sure it meets the minimum character choice criteria
   for (let i = 0; i < options.length; i++) {
     curCharacter = randomCharacter(options[i]);
     curString += curCharacter;
@@ -81,6 +87,7 @@ function firstRandomCharacter (options) {
 function randomCharacter (charTypes){
   let type = "";
 
+  //creates a string consisting of chosen character types to choose next character from
   if(charTypes.indexOf("1") > -1){
     type += letters[Math.floor(Math.random() * letters.length)].toLowerCase();
   }
@@ -99,5 +106,6 @@ function randomCharacter (charTypes){
 }
 
 function randomizeString (curString){
+  //breaks apart the string and randomizes each individual letter and rejoins it all back together
   return curString.split("").sort(function (){ return .5 - Math.random()}).join("");
 }

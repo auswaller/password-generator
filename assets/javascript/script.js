@@ -100,16 +100,16 @@ function randomCharacter (charTypes){
   let character = "";
 
   if(charTypes.indexOf("1") > -1){
-    type += letters.toString().replaceAll(",","").toLowerCase();
+    type += letters.join("").toLowerCase();
   }
   if(charTypes.indexOf("2") > -1){
-    type += letters.toString().replaceAll(",","");
+    type += letters.join("");
   }
   if(charTypes.indexOf("3") > -1){
-    type += numbers.toString().replaceAll(",","");
+    type += numbers.join("");
   }
   if(charTypes.indexOf("4") > -1){
-    type += symbols.toString().replaceAll(",","");
+    type += symbols.join("");
     type += ",";
   }
   console.log("Current pool of characters to choose from: " + type);

@@ -22,8 +22,8 @@ function generatePassword (length, types) {
   let genPassword = firstRandomCharacter(types);
 
   for (let i = genPassword.length; i < length; i++) {
-    newCharacter = randomCharacter(types, false);
-    genPassword = genPassword.concat(newCharacter);
+    newCharacter = randomCharacter(types);
+    genPassword += newCharacter;
     console.log("New character: " + newCharacter + "\nPassword in progress: " + genPassword + "\nIteration: " + (i + 1));
   }
 
@@ -32,7 +32,6 @@ function generatePassword (length, types) {
 
 function askLength () {
   let length = parseInt(prompt("Enter the length of the desired password (8-128 characters): ", "8"));
-  console.log("Length entered: " + length + " " + typeof (length))
 
   if (Number.isNaN(length)) {
     alert("You did not enter a number! Please enter a number between 8 - 128");
@@ -50,11 +49,10 @@ function askLength () {
 
 function askCharType () {
   let charPrompt = prompt("Please enter the character types with commas in between: \n1 = lowercase \n2 = uppercase \n3 = numeric \n4 = special characters", "1, 2, 3, 4");
+  
   let charTypes = charPrompt.replaceAll(" ", "").split(",");
   let charTypesSet = new Set(charTypes);
   charTypes = Array.from(charTypesSet);
-
-  console.log("Character types entered: " + charPrompt + ". Parsed into array with duplicates removed: " + charTypes + " " + typeof (charTypes));
 
   for (let i = 0; i < charTypes.length; i++) {
     if ((charTypes[i] == "1") || (charTypes[i] == "2") || (charTypes[i] == "3") || (charTypes[i] == "4")) {
@@ -68,51 +66,36 @@ function askCharType () {
 }
 
 function firstRandomCharacter (options) {
-  let curOptions = options.slice(0);
   let curCharacter = "";
+  let curString = "";
 
   for (let i = 0; i < options.length; i++) {
-    if (curOptions.indexOf("1") > -1) {
-      curCharacter += letters[Math.floor(Math.random() * letters.length)].toLowerCase();
-      curOptions.splice(curOptions.indexOf("1"), 1);
-    }
-    else if (curOptions.indexOf("2") > -1) {
-      curCharacter += letters[Math.floor(Math.random() * letters.length)];
-      curOptions.splice(curOptions.indexOf("2"), 1);
-    }
-    else if (curOptions.indexOf("3") > -1) {
-      curCharacter += numbers[Math.floor(Math.random() * numbers.length)];
-      curOptions.splice(curOptions.indexOf("3"), 1);
-    }
-    else if (curOptions.indexOf("4") > -1) {
-      curCharacter += symbols[Math.floor(Math.random() * symbols.length)];
-      curOptions.splice(curOptions.indexOf("4"), 1);
-    }
-    console.log("Current password: " + curCharacter);
+    curCharacter = randomCharacter(options[i]);
+    curString += curCharacter;
+    console.log("New character: " + curCharacter + "\nPassword in progress: " + curString + "\nIteration: " + (i + 1));
   }
 
-  return curCharacter;
+  return curString;
 }
 
 function randomCharacter (charTypes){
   let type = "";
-  let character = "";
 
   if(charTypes.indexOf("1") > -1){
-    type += letters.join("").toLowerCase();
+    type += letters[Math.floor(Math.random() * letters.length)].toLowerCase();
   }
   if(charTypes.indexOf("2") > -1){
-    type += letters.join("");
+    type += letters[Math.floor(Math.random() * letters.length)];
   }
   if(charTypes.indexOf("3") > -1){
-    type += numbers.join("");
+    type += numbers[Math.floor(Math.random() * numbers.length)];
   }
   if(charTypes.indexOf("4") > -1){
-    type += symbols.join("");
-    type += ",";
+    type += symbols[Math.floor(Math.random() * symbols.length)];
   }
-  console.log("Current pool of characters to choose from: " + type);
-  return character = type[Math.floor(Math.random() * type.length)];
+
+  console.log("Pool to choose from: " + type);
+  return type[Math.floor(Math.random() * type.length)];
 }
 
 function randomizeString (curString){

@@ -6,14 +6,14 @@ var generateBtn = document.querySelector("#generate");
 generateBtn.addEventListener("click", writePassword);
 
 function writePassword () {
-  var pwdLength = askLength();
+  let pwdLength = askLength();
   console.log("Password length is: " + pwdLength);
 
-  var pwdCharTypes = askCharType();
+  let pwdCharTypes = askCharType();
   console.log("Password character types are: " + pwdCharTypes);
 
-  var password = generatePassword(pwdLength, pwdCharTypes);
-  var passwordText = document.querySelector("#password");
+  let password = generatePassword(pwdLength, pwdCharTypes);
+  let passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
 

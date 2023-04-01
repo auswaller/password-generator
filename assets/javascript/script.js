@@ -24,7 +24,7 @@ function generatePassword (length, types) {
   for (let i = genPassword.length; i < length; i++) {
     newCharacter = randomCharacter(types, false);
     genPassword = genPassword.concat(newCharacter);
-    console.log("New character: " + newCharacter + "\nPassword in progress: " + genPassword + "\nIteration: " + i);
+    console.log("New character: " + newCharacter + "\nPassword in progress: " + genPassword + "\nIteration: " + (i + 1));
   }
 
   return randomizeString(genPassword);
@@ -72,7 +72,6 @@ function firstRandomCharacter (options) {
   let curCharacter = "";
 
   for (let i = 0; i < options.length; i++) {
-    console.log("Amount of options: " + options.length + " iteration: " + i);
     if (curOptions.indexOf("1") > -1) {
       curCharacter += letters[Math.floor(Math.random() * letters.length)].toLowerCase();
       curOptions.splice(curOptions.indexOf("1"), 1);
